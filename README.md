@@ -15,8 +15,7 @@ may be published are code rather than prose.
 The per-cell records themselves are a separate deposit, because they are 2.1 GB
 extracted and nobody should have to download them to read the code:
 
-- Records with DOI: *(concept DOI of the data deposit)*
-- Analysis outputs behind every figure and table: `final/` in this repository
+- Analysis outputs behind every figure and table: `final/` in 10.5281/zenodo.22180144
 
 ## Layout
 
