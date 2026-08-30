@@ -1,0 +1,43 @@
+{
+  "status": "ok",
+  "source": "editorial_audited_claims",
+  "checklist": [
+    "paired_significance_test",
+    "confidence_interval",
+    "proper_scoring_or_calibration",
+    "calibrated_outputs"
+  ],
+  "n_claims": 4,
+  "n_flagged": 4,
+  "flagged": [
+    {
+      "id": "TabPFN25_100pct_winrate",
+      "missing": [
+        "paired_significance_test",
+        "proper_scoring_or_calibration",
+        "calibrated_outputs"
+      ]
+    },
+    {
+      "id": "TabICL_not_sig_diff_from_top",
+      "missing": [
+        "calibrated_outputs"
+      ]
+    },
+    {
+      "id": "Mitra_leaderboard_parity",
+      "missing": [
+        "paired_significance_test",
+        "calibrated_outputs"
+      ]
+    },
+    {
+      "id": "TALENT_method_ranking",
+      "missing": [
+        "confidence_interval",
+        "proper_scoring_or_calibration",
+        "calibrated_outputs"
+      ]
+    }
+  ]
+}

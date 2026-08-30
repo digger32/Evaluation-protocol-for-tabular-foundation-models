@@ -1,0 +1,59 @@
+{
+  "status": "ok",
+  "models": [
+    "catboost_tuned",
+    "lightgbm_tuned",
+    "realmlp",
+    "tabm",
+    "tabpfn3",
+    "xgboost_tuned"
+  ],
+  "n_datasets_random": 43,
+  "n_datasets_temporal": 8,
+  "dropped_for_completeness": [
+    "mitra",
+    "tabicl",
+    "tabpfn25",
+    "tabpfnv2"
+  ],
+  "coverage_note": "ranked only on systems holding a complete block under BOTH split policies; systems dropped here appear with their coverage in the applicability table",
+  "mean_rank_random_split": {
+    "catboost_tuned": 3.011627906976744,
+    "lightgbm_tuned": 3.7093023255813953,
+    "realmlp": 4.430232558139535,
+    "tabm": 3.7790697674418605,
+    "tabpfn3": 1.6395348837209303,
+    "xgboost_tuned": 4.430232558139535
+  },
+  "mean_rank_temporal_split": {
+    "catboost_tuned": 2.625,
+    "lightgbm_tuned": 3.375,
+    "realmlp": 3.5,
+    "tabm": 1.625,
+    "tabpfn3": 4.625,
+    "xgboost_tuned": 5.25
+  },
+  "rank_random_split": {
+    "catboost_tuned": 3.011627906976744,
+    "lightgbm_tuned": 3.7093023255813953,
+    "realmlp": 4.430232558139535,
+    "tabm": 3.7790697674418605,
+    "tabpfn3": 1.6395348837209303,
+    "xgboost_tuned": 4.430232558139535
+  },
+  "rank_temporal_split": {
+    "catboost_tuned": 2.625,
+    "lightgbm_tuned": 3.375,
+    "realmlp": 3.5,
+    "tabm": 1.625,
+    "tabpfn3": 4.625,
+    "xgboost_tuned": 5.25
+  },
+  "kendall_tau": 0.13801311186847084,
+  "tau_p": 0.7020563949269414,
+  "largest_movers": [
+    "tabpfn3",
+    "tabm",
+    "realmlp"
+  ]
+}

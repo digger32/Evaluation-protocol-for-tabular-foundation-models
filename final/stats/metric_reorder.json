@@ -1,0 +1,56 @@
+{
+  "status": "ok",
+  "kendall_tau": 0.7999999999999999,
+  "tau_p": 0.08333333333333333,
+  "tau_ci": [
+    0.6,
+    0.9999999999999999
+  ],
+  "n_datasets": 45,
+  "shifts": {
+    "catboost_tuned": {
+      "point_rank": 2.1777777777777776,
+      "proper_rank": 2.111111111111111,
+      "shift": -0.06666666666666643
+    },
+    "lightgbm_tuned": {
+      "point_rank": 2.8666666666666667,
+      "proper_rank": 2.6222222222222222,
+      "shift": -0.24444444444444446
+    },
+    "realmlp": {
+      "point_rank": 3.566666666666667,
+      "proper_rank": 3.9555555555555557,
+      "shift": 0.38888888888888884
+    },
+    "tabm": {
+      "point_rank": 2.8444444444444446,
+      "proper_rank": 3.022222222222222,
+      "shift": 0.1777777777777776
+    },
+    "xgboost_tuned": {
+      "point_rank": 3.5444444444444443,
+      "proper_rank": 3.2888888888888888,
+      "shift": -0.25555555555555554
+    }
+  },
+  "largest_movers": [
+    "realmlp",
+    "xgboost_tuned",
+    "lightgbm_tuned"
+  ],
+  "proper_score_fallback": {
+    "rule": "CRPS of a deterministic forecast equals the absolute error; point predictors are scored by MAE",
+    "units": {
+      "catboost_tuned|regression|mae": 150,
+      "lightgbm_tuned|regression|mae": 150,
+      "mitra|regression|mae": 150,
+      "realmlp|regression|mae": 150,
+      "tabm|regression|mae": 150,
+      "tabpfn25|regression|mae": 150,
+      "tabpfn3|regression|mae": 150,
+      "tabpfnv2|regression|mae": 150,
+      "xgboost_tuned|regression|mae": 150
+    }
+  }
+}
