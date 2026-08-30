@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+title: Evaluation protocol for tabular foundation models
+message: >-
+  If you use this software or the released records, please cite both this
+  repository and the accompanying article.
+type: software
+authors:
+  - given-names: Sergei O.
+    family-names: Kurashkin
+    email: kurashkin@bmstu.ru
+    affiliation: >-
+      Artificial Intelligence Technology Scientific and Education Center,
+      Bauman Moscow State Technical University
+  - given-names: Vadim S.
+    family-names: Tynchenko
+    email: vadimond@mail.ru
+    affiliation: >-
+      Artificial Intelligence Technology Scientific and Education Center,
+      Bauman Moscow State Technical University
+  - given-names: Aleksei S.
+    family-names: Borodulin
+    email: alexey.borodulin@emtc.ru
+    affiliation: >-
+      Artificial Intelligence Technology Scientific and Education Center,
+      Bauman Moscow State Technical University
+  - given-names: Vladimir A.
+    family-names: Nelyub
+    email: vladimir.nelub@emtc.ru
+    affiliation: >-
+      Artificial Intelligence Technology Scientific and Education Center,
+      Bauman Moscow State Technical University
+repository-code: >-
+  https://github.com/digger32/Evaluation-protocol-for-tabular-foundation-models
+abstract: >-
+  Reference implementation of a significance-, stability- and calibration-aware
+  evaluation protocol for tabular systems: a job-based benchmark runner that
+  writes one record per dataset, split policy, model and seed; an analysis stage
+  that scores point metrics, proper scoring rules and calibration together with
+  paired tests, bootstrap intervals and resampling-based rank-stability bands;
+  and a review-proofing gate of eleven assertions that refuses to release numbers
+  whose provenance cannot be checked. The repository also carries the released
+  run behind the accompanying article: 6,395 per-cell records, the run manifest
+  and the twelve analysis outputs.
+keywords:
+  - tabular foundation models
+  - benchmarking
+  - evaluation protocol
+  - statistical significance
+  - calibration
+  - reproducibility
+license: MIT
+version: 1.0.0
+date-released: '2026-08-30'
