@@ -150,4 +150,4 @@ the data rather than taken on trust.
 
 ## Licence
 
-To be added before release.
+See Licence file.
