@@ -1,0 +1,32 @@
+# Environment used to produce the published numbers.
+#
+# The twelve pinned versions below are the ones recorded under `env.versions` in
+# every unit record of the released run, so they can be checked against the data
+# rather than trusted. Python 3.12.
+#
+# The remaining packages are imported by the pipeline but are not part of the
+# recorded fingerprint; they are listed unpinned, and a reader who needs an exact
+# match should read `env.versions` from the records themselves.
+
+# --- recorded in every unit record -----------------------------------------
+scikit-learn==1.7.2
+catboost==1.2.10
+xgboost==3.3.0
+lightgbm==4.6.0
+torch==2.9.1
+tabpfn==8.0.8
+tabicl==0.1.4
+autogluon.tabular==1.5.0
+pytabkit==1.7.3
+optuna==4.9.0
+numpy==2.3.5
+openml==0.15.1
+
+# --- imported by the pipeline, not part of the recorded fingerprint ---------
+scipy
+pandas
+pyyaml
+matplotlib
+
+# --- optional --------------------------------------------------------------
+# pymoo   # only for the supplementary multi-objective Pareto backend

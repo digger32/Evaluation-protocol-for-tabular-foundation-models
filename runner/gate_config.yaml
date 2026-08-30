@@ -1,0 +1,125 @@
+# Review-proofing gate config — tabular-eval-protocol (TFM re-benchmark).
+# The gate reads run_meta*.json + manifest.jsonl + per-unit JSONs in <outdir>
+# and asserts these conditions. Dataset names below are FAMILY tokens (the
+# runner emits '<family>' or '<family>:<name>'; B1 matches at family level).
+#
+# MERGED 29.07.2026: gate_config_additions.yaml is folded in below (coverage +
+# allowlist). Every key here is read by review_gate.py — A0 fails the run on any
+# key the gate does not recognise, so a misspelt section cannot silently pass.
+
+# Optional assertions. All on: this build needs calibration, HPO honesty, stats.
+require_calibration: true       # C1: ECE recorded (the AR-10 calibration layer)
+require_optimism_gap: true      # D1: inner-CV vs held-out gap recorded (matched_hpo)
+require_stats: true             # E1: omnibus + post-hoc artifacts exist
+
+# E1 looks for these under <outdir> (produced by the analysis stage: Friedman +
+# Nemenyi across datasets, and the Wilcoxon survival audit).
+stats_artifacts:
+  - stats/friedman_nemenyi.json
+  - stats/wilcoxon_survival.json
+
+# B1: every comparative ("A beats B") claim must have >=1 run on an
+# independent / public dataset family. core = host benchmark (NOT independent);
+# cc18 and tabred are the independent families.
+comparative_claims:
+  - id: "C1_claims_survive_paired_tests"
+    independent_datasets: ["cc18", "tabred"]
+  - id: "C3_rankings_reorder_under_proper_scoring"
+    independent_datasets: ["cc18"]
+  - id: "C4_calibration_is_distinct_axis"
+    independent_datasets: ["cc18"]
+  - id: "C5_conclusions_reorder_temporal_and_hpo"
+    independent_datasets: ["tabred"]
+
+# F3: coverage. Every declared system must hold >0 record-level ok in each
+# family/protocol where it applies; a group that is entirely capability skips
+# (skipped_class_cap / skipped_feature_cap / skipped_ag_memory /
+# skipped_no_regression) is fine, a group with only errors is not.
+coverage:
+  require_ok_per_system: true
+  # Restated for the record. A1 and F2 enforce both unconditionally (legs must
+  # be pairwise disjoint and cover the manifest exactly once; all records must
+  # carry one hostname), so these may not be switched off — A0 rejects `false`.
+  shards_cover_grid_exactly_once: true
+  single_hostname: true
+
+# G1: documented resource limits. An entry is not an excuse but a checkable
+# statement: the gate demands that any incomplete unit match one of these, and
+# fails on anything new. An entry never masks a success.
+allowlist:
+  # The ONLY confirmed hard limit: the other 45 OOM suspects all passed 45/45
+  # on an exclusive card (retry 10.07) — they were GPU-contention artefacts.
+  - model: tabicl
+    dataset: tabred:homesite-insurance
+    protocol: temporal
+    reason: oom_host
+    note: "SIGKILL by the kernel: anon-rss 128 GB (journalctl), reproduces on an idle card; the 50k row cap does not prevent it"
+  # HPO dearer than the budget. Micro-measurement of v6 (21.07, early stopping
+  # + search ceiling 500): INNHotelsGroup 6620 s and okcupid_stem 3548 s now FIT
+  # inside the 14400 s cap, so their entries were removed. One measured limit
+  # remains. Deltas v5 -> v6 on okcupid: xgb 3768 -> 1596 s, lgb 3364 -> 1304 s,
+  # catboost >14400 -> 3548 s.
+  - model: catboost_tuned
+    dataset: core:ASP-POTASSCO
+    protocol: matched_hpo
+    reason: hpo_budget
+    note: "v6 micro 21.07: seed 0 still timed out beyond 14400 s with early stopping; dev: seeds 0-4 all >14400 s"
+
+  # -- measured accelerator-memory limits (A100 40 GB) -----------------------
+  # Reproduced TWICE on an exclusive card: the unit computes for 68-201 s and
+  # then exhausts accelerator memory. The runner still prints [ok], because the
+  # worker exits cleanly after recording the failure; the error is visible only
+  # at record level. An exploratory run on earlier library versions completed
+  # these same cells, so the limit belongs to the pinned configuration
+  # (torch 2.9.1, tabpfn 8.0.8, tabicl 0.1.4) rather than to the models as such,
+  # and is reported that way. The TabICL failures share one property: data
+  # width. cc18:3573 is mnist_784 (784 features); 146825, 167121 and 167124 are
+  # image-derived OpenML-CC18 datasets.
+  - model: tabicl
+    dataset: cc18:3573
+    protocol: cv_standard
+    reason: oom_gpu
+    note: "mnist_784, 784 features; fails after 68 s, all 5 seeds; reproduced on two separate retries"
+  - model: tabicl
+    dataset: cc18:146825
+    protocol: cv_standard
+    reason: oom_gpu
+    note: "wide image-derived dataset; fails after 81 s, all 5 seeds"
+  - model: tabicl
+    dataset: cc18:167121
+    protocol: cv_standard
+    reason: oom_gpu
+    note: "wide image-derived dataset; fails after 114 s, all 5 seeds"
+  - model: tabicl
+    dataset: cc18:167124
+    protocol: cv_standard
+    reason: oom_gpu
+    note: "wide image-derived dataset; fails after 201 s, all 5 seeds"
+  - model: tabicl
+    dataset: tabred:homecredit-default
+    protocol: temporal
+    reason: oom_gpu
+    note: "industrial dataset under the temporal split; fails after 137 s, all 5 seeds"
+  - model: tabpfn25
+    dataset: tabred:cooking-time
+    protocol: temporal
+    reason: oom_gpu
+    note: "TabPFNCUDAOutOfMemoryError after 37 s, all 5 seeds"
+  - model: tabpfn25
+    dataset: tabred:delivery-eta
+    protocol: temporal
+    reason: oom_gpu
+    note: "TabPFNCUDAOutOfMemoryError after 40 s, all 5 seeds"
+  - model: tabpfn25
+    dataset: tabred:homecredit-default
+    protocol: temporal
+    reason: oom_gpu
+    note: "TabPFNCUDAOutOfMemoryError after 124 s, all 5 seeds"
+  - model: tabpfn25
+    dataset: tabred:maps-routing
+    protocol: temporal
+    reason: oom_gpu
+    note: "TabPFNCUDAOutOfMemoryError after 82 s, all 5 seeds"
+
+# The allowlist permits a unit to be ABSENT, never to be unmentioned: every
+# entry is published in the paper's appendix as a documented limit.

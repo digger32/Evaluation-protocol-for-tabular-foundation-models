@@ -1,0 +1,55 @@
+# Independent public-dataset leg — OpenML-CC18.
+#
+# Role: external-validity for the comparative ("A beats B") claims. The gate's
+# B1 assertion requires >=1 run on an independent/public dataset for every such
+# claim; cc18 (and tabred) provide it. OpenML-CC18 is curated and classification
+# only, so the regression metrics simply do not apply to this family.
+#
+# We do NOT hardcode the 72 task ids here. openml.org is not in this box's egress
+# allowlist, and a transcribed-from-memory id list is a data-integrity risk.
+# Instead the suite is declared and resolved at run time on the experiment box
+# (which has OpenML access) by topic_pipeline.expand_family, with the core
+# overlap removed by OpenML dataset id. This keeps the list authoritative and
+# avoids a stale snapshot.
+#
+# Token convention: "cc18:<openml_task_id>"  e.g. "cc18:3573".
+
+family: cc18
+role: external_validity
+loader: openml_task
+# FINAL-PASS MODE (v6): read the frozen resolution instead of the network, so
+# an outage can never silently shrink the grid. cc18_resolved.json is exactly
+# the resolution the dev matrix ran on (69 kept after core dedup); verify and
+# stamp it once with scripts/snapshot_cc18.py before the final run. To resolve
+# live again (not recommended), set resolve back to openml_suite.
+resolve: static_snapshot
+snapshot: cc18_resolved.json
+openml_suite: OpenML-CC18        # study/suite alias; suite id 99 (used by snapshot_cc18.py)
+
+# Only classification protocol applies (CC18 has no regression tasks).
+protocols: [cv_standard]
+
+# expand_family resolves the suite, then drops any task whose OpenML dataset id
+# coincides with a TALENT-tiny core dataset's openml_id (read from each
+# core/<name>/info.json). This prevents the same dataset appearing in both the
+# host benchmark and the "independent" leg, which would void the external-
+# validity argument.
+dedup:
+  against_family: core
+  by: openml_dataset_id
+  source: core_info_json         # core/<name>/info.json -> "openml_id"
+
+# Same split family as core's cv_standard so the two are comparable.
+protocol_params:
+  split: stratified_holdout
+  train_frac: 0.64
+  val_frac: 0.16
+  test_frac: 0.20
+
+preprocessing: talent_gorishniy_2021
+
+# Optional cap: CC18 spans a wide dataset-size range. Leave unset to run all
+# resolved tasks; set max_datasets to subsample for a dev sweep.
+# max_datasets: null
+
+datasets: []   # populated at run time by expand_family (do not hand-edit)

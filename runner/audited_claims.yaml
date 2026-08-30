@@ -1,0 +1,83 @@
+# Audited-claim list. Drives two outputs of the analysis stage.
+#
+#   1) comparative_claims -> the paired claim-survival audit (Table 1).
+#      Each entry is a SPECIFIC published "A beats B" point-metric claim taken
+#      from the leaderboard or results table of the source publication. a/b are
+#      model tokens as used by topic_pipeline. analyze.py pairs the per-dataset
+#      oriented scores of the two systems on the datasets they share, runs a
+#      one-sided Wilcoxon signed-rank test in the direction the claim was
+#      published in, bootstraps a confidence interval on the mean delta, and
+#      records survival only if the Holm-corrected p is below alpha AND the
+#      interval excludes zero. A claim about a classification-only system is
+#      audited on the classification subset, so its n differs from the n of the
+#      claims evaluated on the complete block; n is reported per claim.
+#
+#   2) audited_claims -> the minimum reporting standard (Table 3). For each
+#      published claim, record which evidence the SOURCE itself supplied. The
+#      standard flags any claim that lacks a paired significance test, lacks a
+#      confidence interval, is not accompanied by a proper scoring rule or a
+#      calibration measure, or rests on uncalibrated outputs. These flags are
+#      properties of the source publications and are set before any test in this
+#      work is run.
+#
+# What each source supplies, as recorded from the source publications:
+#   TabPFN-2.5 : Elo with standard-error bars and pairwise win rates; no paired
+#                across-suite significance test; classification results computed
+#                from uncalibrated default scores; a "100% win rate against
+#                default XGBoost (up to 10k rows)" point claim; a hyperparameter
+#                budget asymmetry against the baselines it is compared with.
+#   TabICL     : critical-difference diagrams with Wilcoxon-Holm correction and
+#                log loss; states two leading systems as not significantly
+#                different, which is a correctly stated non-claim.
+#   Mitra      : Elo with 95% confidence intervals and per-benchmark
+#                critical-difference plots; cross-entropy as its only proper
+#                scoring measure; no paired across-dataset test behind the
+#                head-to-head cells; no calibration, CRPS or interval score.
+#   TALENT     : Wilcoxon-Holm critical-difference diagrams and paired t-test
+#                heatmaps under a single hold-out protocol; point metrics only
+#                (accuracy and RMSE) plus a shifted geometric mean; no interval
+#                on the per-comparison delta.
+
+comparative_claims:
+  # The headline TabPFN-2.5 point-superiority claims. Published against DEFAULT
+  # gradient-boosted baselines; audited here against the TUNED baselines, which
+  # is the harder and the fairer test.
+  - id: "TabPFN25_beats_XGBoost_point"
+    a: tabpfn25
+    b: xgboost_tuned
+  - id: "TabPFN25_beats_CatBoost_point"
+    a: tabpfn25
+    b: catboost_tuned
+  - id: "TabPFN25_beats_LightGBM_point"
+    a: tabpfn25
+    b: lightgbm_tuned
+  # TabICL on classification; audited on the classification subset.
+  - id: "TabICL_beats_XGBoost_point_cls"
+    a: tabicl
+    b: xgboost_tuned
+  # A head-to-head leaderboard cell reported as a win for Mitra.
+  - id: "Mitra_beats_LightGBM_point"
+    a: mitra
+    b: lightgbm_tuned
+
+audited_claims:
+  - id: "TabPFN25_100pct_winrate"
+    paired_significance_test: false
+    confidence_interval: true              # Elo standard-error bars
+    proper_scoring_or_calibration: false   # explicitly uncalibrated; no log loss, ECE or CRPS
+    calibrated_outputs: false
+  - id: "TabICL_not_sig_diff_from_top"     # a correctly stated NON-claim
+    paired_significance_test: true         # critical difference with Wilcoxon-Holm
+    confidence_interval: true
+    proper_scoring_or_calibration: true    # log loss
+    calibrated_outputs: false              # calibration not audited
+  - id: "Mitra_leaderboard_parity"
+    paired_significance_test: false        # CD plots exist, but no paired test behind the win cells
+    confidence_interval: true              # Elo with 95% confidence intervals
+    proper_scoring_or_calibration: true    # cross-entropy only
+    calibrated_outputs: false              # no ECE or reliability curve
+  - id: "TALENT_method_ranking"
+    paired_significance_test: true         # Wilcoxon-Holm CD and paired t-tests
+    confidence_interval: false             # shifted geometric mean, no per-delta interval
+    proper_scoring_or_calibration: false   # point metrics and a geometric-mean error only
+    calibrated_outputs: false
