@@ -1,0 +1,716 @@
+{
+  "suite": 99,
+  "n_tasks": 72,
+  "n_dropped_overlap_core": 3,
+  "n_kept": 69,
+  "core_dedup_ids_available": 35,
+  "kept": [
+    {
+      "task_id": 3,
+      "dataset_id": 3,
+      "dropped": false
+    },
+    {
+      "task_id": 6,
+      "dataset_id": 6,
+      "dropped": false
+    },
+    {
+      "task_id": 11,
+      "dataset_id": 11,
+      "dropped": false
+    },
+    {
+      "task_id": 12,
+      "dataset_id": 12,
+      "dropped": false
+    },
+    {
+      "task_id": 14,
+      "dataset_id": 14,
+      "dropped": false
+    },
+    {
+      "task_id": 15,
+      "dataset_id": 15,
+      "dropped": false
+    },
+    {
+      "task_id": 16,
+      "dataset_id": 16,
+      "dropped": false
+    },
+    {
+      "task_id": 18,
+      "dataset_id": 18,
+      "dropped": false
+    },
+    {
+      "task_id": 22,
+      "dataset_id": 22,
+      "dropped": false
+    },
+    {
+      "task_id": 23,
+      "dataset_id": 23,
+      "dropped": false
+    },
+    {
+      "task_id": 28,
+      "dataset_id": 28,
+      "dropped": false
+    },
+    {
+      "task_id": 29,
+      "dataset_id": 29,
+      "dropped": false
+    },
+    {
+      "task_id": 31,
+      "dataset_id": 31,
+      "dropped": false
+    },
+    {
+      "task_id": 32,
+      "dataset_id": 32,
+      "dropped": false
+    },
+    {
+      "task_id": 37,
+      "dataset_id": 37,
+      "dropped": false
+    },
+    {
+      "task_id": 43,
+      "dataset_id": 44,
+      "dropped": false
+    },
+    {
+      "task_id": 45,
+      "dataset_id": 46,
+      "dropped": false
+    },
+    {
+      "task_id": 49,
+      "dataset_id": 50,
+      "dropped": false
+    },
+    {
+      "task_id": 53,
+      "dataset_id": 54,
+      "dropped": false
+    },
+    {
+      "task_id": 219,
+      "dataset_id": 151,
+      "dropped": false
+    },
+    {
+      "task_id": 2074,
+      "dataset_id": 182,
+      "dropped": false
+    },
+    {
+      "task_id": 2079,
+      "dataset_id": 188,
+      "dropped": false
+    },
+    {
+      "task_id": 3021,
+      "dataset_id": 38,
+      "dropped": false
+    },
+    {
+      "task_id": 3022,
+      "dataset_id": 307,
+      "dropped": false
+    },
+    {
+      "task_id": 3481,
+      "dataset_id": 300,
+      "dropped": false
+    },
+    {
+      "task_id": 3549,
+      "dataset_id": 458,
+      "dropped": false
+    },
+    {
+      "task_id": 3560,
+      "dataset_id": 469,
+      "dropped": false
+    },
+    {
+      "task_id": 3573,
+      "dataset_id": 554,
+      "dropped": false
+    },
+    {
+      "task_id": 3903,
+      "dataset_id": 1050,
+      "dropped": false
+    },
+    {
+      "task_id": 3904,
+      "dataset_id": 1053,
+      "dropped": false
+    },
+    {
+      "task_id": 3913,
+      "dataset_id": 1063,
+      "dropped": false
+    },
+    {
+      "task_id": 3917,
+      "dataset_id": 1067,
+      "dropped": false
+    },
+    {
+      "task_id": 3918,
+      "dataset_id": 1068,
+      "dropped": false
+    },
+    {
+      "task_id": 7592,
+      "dataset_id": 1590,
+      "dropped": false
+    },
+    {
+      "task_id": 9910,
+      "dataset_id": 4134,
+      "dropped": false
+    },
+    {
+      "task_id": 9946,
+      "dataset_id": 1510,
+      "dropped": false
+    },
+    {
+      "task_id": 9952,
+      "dataset_id": 1489,
+      "dropped": false
+    },
+    {
+      "task_id": 9957,
+      "dataset_id": 1494,
+      "dropped": false
+    },
+    {
+      "task_id": 9960,
+      "dataset_id": 1497,
+      "dropped": false
+    },
+    {
+      "task_id": 9964,
+      "dataset_id": 1501,
+      "dropped": false
+    },
+    {
+      "task_id": 9971,
+      "dataset_id": 1480,
+      "dropped": false
+    },
+    {
+      "task_id": 9976,
+      "dataset_id": 1485,
+      "dropped": false
+    },
+    {
+      "task_id": 9977,
+      "dataset_id": 1486,
+      "dropped": false
+    },
+    {
+      "task_id": 9978,
+      "dataset_id": 1487,
+      "dropped": false
+    },
+    {
+      "task_id": 9981,
+      "dataset_id": 1468,
+      "dropped": false
+    },
+    {
+      "task_id": 9985,
+      "dataset_id": 1475,
+      "dropped": false
+    },
+    {
+      "task_id": 10093,
+      "dataset_id": 1462,
+      "dropped": false
+    },
+    {
+      "task_id": 10101,
+      "dataset_id": 1464,
+      "dropped": false
+    },
+    {
+      "task_id": 14954,
+      "dataset_id": 6332,
+      "dropped": false
+    },
+    {
+      "task_id": 14965,
+      "dataset_id": 1461,
+      "dropped": false
+    },
+    {
+      "task_id": 14969,
+      "dataset_id": 4538,
+      "dropped": false
+    },
+    {
+      "task_id": 14970,
+      "dataset_id": 1478,
+      "dropped": false
+    },
+    {
+      "task_id": 125920,
+      "dataset_id": 23381,
+      "dropped": false
+    },
+    {
+      "task_id": 125922,
+      "dataset_id": 40499,
+      "dropped": false
+    },
+    {
+      "task_id": 146195,
+      "dataset_id": 40668,
+      "dropped": false
+    },
+    {
+      "task_id": 146800,
+      "dataset_id": 40966,
+      "dropped": false
+    },
+    {
+      "task_id": 146817,
+      "dataset_id": 40982,
+      "dropped": false
+    },
+    {
+      "task_id": 146819,
+      "dataset_id": 40994,
+      "dropped": false
+    },
+    {
+      "task_id": 146820,
+      "dataset_id": 40983,
+      "dropped": false
+    },
+    {
+      "task_id": 146821,
+      "dataset_id": 40975,
+      "dropped": false
+    },
+    {
+      "task_id": 146822,
+      "dataset_id": 40984,
+      "dropped": false
+    },
+    {
+      "task_id": 146824,
+      "dataset_id": 40979,
+      "dropped": false
+    },
+    {
+      "task_id": 146825,
+      "dataset_id": 40996,
+      "dropped": false
+    },
+    {
+      "task_id": 167120,
+      "dataset_id": 23517,
+      "dropped": false
+    },
+    {
+      "task_id": 167121,
+      "dataset_id": 40923,
+      "dropped": false
+    },
+    {
+      "task_id": 167124,
+      "dataset_id": 40927,
+      "dropped": false
+    },
+    {
+      "task_id": 167125,
+      "dataset_id": 40978,
+      "dropped": false
+    },
+    {
+      "task_id": 167140,
+      "dataset_id": 40670,
+      "dropped": false
+    },
+    {
+      "task_id": 167141,
+      "dataset_id": 40701,
+      "dropped": false
+    }
+  ],
+  "all": [
+    {
+      "task_id": 3,
+      "dataset_id": 3,
+      "dropped": false
+    },
+    {
+      "task_id": 6,
+      "dataset_id": 6,
+      "dropped": false
+    },
+    {
+      "task_id": 11,
+      "dataset_id": 11,
+      "dropped": false
+    },
+    {
+      "task_id": 12,
+      "dataset_id": 12,
+      "dropped": false
+    },
+    {
+      "task_id": 14,
+      "dataset_id": 14,
+      "dropped": false
+    },
+    {
+      "task_id": 15,
+      "dataset_id": 15,
+      "dropped": false
+    },
+    {
+      "task_id": 16,
+      "dataset_id": 16,
+      "dropped": false
+    },
+    {
+      "task_id": 18,
+      "dataset_id": 18,
+      "dropped": false
+    },
+    {
+      "task_id": 22,
+      "dataset_id": 22,
+      "dropped": false
+    },
+    {
+      "task_id": 23,
+      "dataset_id": 23,
+      "dropped": false
+    },
+    {
+      "task_id": 28,
+      "dataset_id": 28,
+      "dropped": false
+    },
+    {
+      "task_id": 29,
+      "dataset_id": 29,
+      "dropped": false
+    },
+    {
+      "task_id": 31,
+      "dataset_id": 31,
+      "dropped": false
+    },
+    {
+      "task_id": 32,
+      "dataset_id": 32,
+      "dropped": false
+    },
+    {
+      "task_id": 37,
+      "dataset_id": 37,
+      "dropped": false
+    },
+    {
+      "task_id": 43,
+      "dataset_id": 44,
+      "dropped": false
+    },
+    {
+      "task_id": 45,
+      "dataset_id": 46,
+      "dropped": false
+    },
+    {
+      "task_id": 49,
+      "dataset_id": 50,
+      "dropped": false
+    },
+    {
+      "task_id": 53,
+      "dataset_id": 54,
+      "dropped": false
+    },
+    {
+      "task_id": 219,
+      "dataset_id": 151,
+      "dropped": false
+    },
+    {
+      "task_id": 2074,
+      "dataset_id": 182,
+      "dropped": false
+    },
+    {
+      "task_id": 2079,
+      "dataset_id": 188,
+      "dropped": false
+    },
+    {
+      "task_id": 3021,
+      "dataset_id": 38,
+      "dropped": false
+    },
+    {
+      "task_id": 3022,
+      "dataset_id": 307,
+      "dropped": false
+    },
+    {
+      "task_id": 3481,
+      "dataset_id": 300,
+      "dropped": false
+    },
+    {
+      "task_id": 3549,
+      "dataset_id": 458,
+      "dropped": false
+    },
+    {
+      "task_id": 3560,
+      "dataset_id": 469,
+      "dropped": false
+    },
+    {
+      "task_id": 3573,
+      "dataset_id": 554,
+      "dropped": false
+    },
+    {
+      "task_id": 3902,
+      "dataset_id": 1049,
+      "dropped": true
+    },
+    {
+      "task_id": 3903,
+      "dataset_id": 1050,
+      "dropped": false
+    },
+    {
+      "task_id": 3904,
+      "dataset_id": 1053,
+      "dropped": false
+    },
+    {
+      "task_id": 3913,
+      "dataset_id": 1063,
+      "dropped": false
+    },
+    {
+      "task_id": 3917,
+      "dataset_id": 1067,
+      "dropped": false
+    },
+    {
+      "task_id": 3918,
+      "dataset_id": 1068,
+      "dropped": false
+    },
+    {
+      "task_id": 7592,
+      "dataset_id": 1590,
+      "dropped": false
+    },
+    {
+      "task_id": 9910,
+      "dataset_id": 4134,
+      "dropped": false
+    },
+    {
+      "task_id": 9946,
+      "dataset_id": 1510,
+      "dropped": false
+    },
+    {
+      "task_id": 9952,
+      "dataset_id": 1489,
+      "dropped": false
+    },
+    {
+      "task_id": 9957,
+      "dataset_id": 1494,
+      "dropped": false
+    },
+    {
+      "task_id": 9960,
+      "dataset_id": 1497,
+      "dropped": false
+    },
+    {
+      "task_id": 9964,
+      "dataset_id": 1501,
+      "dropped": false
+    },
+    {
+      "task_id": 9971,
+      "dataset_id": 1480,
+      "dropped": false
+    },
+    {
+      "task_id": 9976,
+      "dataset_id": 1485,
+      "dropped": false
+    },
+    {
+      "task_id": 9977,
+      "dataset_id": 1486,
+      "dropped": false
+    },
+    {
+      "task_id": 9978,
+      "dataset_id": 1487,
+      "dropped": false
+    },
+    {
+      "task_id": 9981,
+      "dataset_id": 1468,
+      "dropped": false
+    },
+    {
+      "task_id": 9985,
+      "dataset_id": 1475,
+      "dropped": false
+    },
+    {
+      "task_id": 10093,
+      "dataset_id": 1462,
+      "dropped": false
+    },
+    {
+      "task_id": 10101,
+      "dataset_id": 1464,
+      "dropped": false
+    },
+    {
+      "task_id": 14952,
+      "dataset_id": 4534,
+      "dropped": true
+    },
+    {
+      "task_id": 14954,
+      "dataset_id": 6332,
+      "dropped": false
+    },
+    {
+      "task_id": 14965,
+      "dataset_id": 1461,
+      "dropped": false
+    },
+    {
+      "task_id": 14969,
+      "dataset_id": 4538,
+      "dropped": false
+    },
+    {
+      "task_id": 14970,
+      "dataset_id": 1478,
+      "dropped": false
+    },
+    {
+      "task_id": 125920,
+      "dataset_id": 23381,
+      "dropped": false
+    },
+    {
+      "task_id": 125922,
+      "dataset_id": 40499,
+      "dropped": false
+    },
+    {
+      "task_id": 146195,
+      "dataset_id": 40668,
+      "dropped": false
+    },
+    {
+      "task_id": 146800,
+      "dataset_id": 40966,
+      "dropped": false
+    },
+    {
+      "task_id": 146817,
+      "dataset_id": 40982,
+      "dropped": false
+    },
+    {
+      "task_id": 146819,
+      "dataset_id": 40994,
+      "dropped": false
+    },
+    {
+      "task_id": 146820,
+      "dataset_id": 40983,
+      "dropped": false
+    },
+    {
+      "task_id": 146821,
+      "dataset_id": 40975,
+      "dropped": false
+    },
+    {
+      "task_id": 146822,
+      "dataset_id": 40984,
+      "dropped": false
+    },
+    {
+      "task_id": 146824,
+      "dataset_id": 40979,
+      "dropped": false
+    },
+    {
+      "task_id": 146825,
+      "dataset_id": 40996,
+      "dropped": false
+    },
+    {
+      "task_id": 167119,
+      "dataset_id": 41027,
+      "dropped": true
+    },
+    {
+      "task_id": 167120,
+      "dataset_id": 23517,
+      "dropped": false
+    },
+    {
+      "task_id": 167121,
+      "dataset_id": 40923,
+      "dropped": false
+    },
+    {
+      "task_id": 167124,
+      "dataset_id": 40927,
+      "dropped": false
+    },
+    {
+      "task_id": 167125,
+      "dataset_id": 40978,
+      "dropped": false
+    },
+    {
+      "task_id": 167140,
+      "dataset_id": 40670,
+      "dropped": false
+    },
+    {
+      "task_id": 167141,
+      "dataset_id": 40701,
+      "dropped": false
+    }
+  ]
+}

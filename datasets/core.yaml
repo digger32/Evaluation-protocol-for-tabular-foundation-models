@@ -1,0 +1,146 @@
+# Host benchmark — TALENT-tiny reproducible core (corpus T-B16).
+#
+# Filled from the TALENT full text (Ye et al., "A Closer Look at Deep Learning
+# Methods on Tabular Datasets", arXiv:2407.00956v4, 7 Nov 2025). The 45 members
+# below are exactly the rows flagged with the Tiny marker in Table 1; the list
+# was extracted from the PDF text layer (all 300 rows parsed, 0 missing), not
+# from OCR of the rendered table.
+#
+# Source of the data arrays: github.com/LAMDA-Tabular/TALENT (TALENT-tiny subset).
+# Each dataset is one folder under TALENT_DATA_ROOT with the standard TALENT
+# layout: info.json + {N,C,y}_{train,val,test}.npy  (N = numerical, C =
+# categorical as strings/objects, y = labels; N or C absent if that feature
+# group is empty). info.json carries task_type, n_classes and openml_id.
+#
+# Token convention used by topic_pipeline.expand_family / load_split:
+#   "core:<folder_name>"  e.g. "core:jasmine", "core:cpu_act".
+
+family: core
+role: host_benchmark            # TALENT-tiny core + axis-2/4 anchor
+data_root_env: TALENT_DATA_ROOT # folder per dataset, named exactly as below
+loader: talent_folder
+
+# Valid protocols for this family (BUILD.md drops the invalid pairs).
+protocols: [cv_standard, matched_hpo]
+
+# Protocol definitions, anchored to TALENT's actual main protocol.
+# NOTE: TALENT's primary protocol is a single fixed HOLD-OUT, not repeated CV.
+# (The earlier stub note "repeated stratified CV" was the placeholder; corrected
+# here against the full text.) Section 4.3: each dataset is split
+# train/val/test = 64/16/20; hyperparameters selected on val; early stopping on
+# the task metric (accuracy for classification, RMSE for regression); models
+# retrained and evaluated over 15 random seeds, mean reported. Optuna, 100
+# trials per method-dataset pair. CV+ensembling is studied ONLY on TALENT-tiny
+# as a robustness check (Section 7.1); the paper does not state the CV fold
+# count K for that variant, so we do not adopt CV here.
+protocol_note: >
+  TALENT main protocol: stratified 64/16/20 hold-out, early stopping on the
+  validation task metric, repeated over random seeds (TALENT uses 15; this
+  build uses the runner's seed axis {0..4} for budget). cv_standard runs each
+  TFM/baseline at its TALENT setting (pretrained models: default inference, no
+  per-dataset tuning); matched_hpo additionally runs the tunable baselines under
+  a nested Optuna search and records the inner-vs-held-out optimism gap.
+
+protocol_params:
+  split: stratified_holdout       # stratify on y for classification; on y-bins for regression
+  train_frac: 0.64
+  val_frac: 0.16
+  test_frac: 0.20
+  hpo_trials: 100                 # matched_hpo only; cv_standard uses defaults / default inference
+  early_stop_metric: {classification: accuracy, regression: rmse}
+
+# Preprocessing follows the TALENT / Gorishniy et al. (2021) pipeline so the
+# re-bench stays comparable (handled in topic_pipeline.load_split):
+#   - numerical: column-mean impute, then standardise (zero mean, unit variance)
+#   - categorical: ordinal encode; missing category -> dedicated token "-1";
+#     one-hot AFTER the ordinal step for non-deep models (except CatBoost, which
+#     gets native categorical handling) and for deep models without a categorical
+#     module.
+preprocessing: talent_gorishniy_2021
+
+# --- 45 datasets (Table 1, Tiny marker) ----------------------------------------
+# DATA-INTEGRITY FLAG (three sources, two of them wrong; all carried into the
+# manuscript, and the correction is applied below rather than only described).
+#
+# (1) Inside the benchmark's paper: the Tiny markers of Table 1 tally to
+#     18 binary / 12 multi-class / 15 regression, while the prose (Sec 1 and
+#     Sec 7.1) states 15 / 12 / 18. The 45-dataset SET is identical either way
+#     and the multi-class count agrees; only the binary/regression tally moves.
+#
+# (2) The SHIPPED METADATA disagrees with both: four datasets carrying a binary
+#     marker are shipped with task_type=regression in info.json —
+#     law-school-admission, ozone_level, shill-bidding, Shipping
+#     (scripts/check_core_types.py, 45/45 folders read, 29.07.2026).
+#
+# (3) The SHIPPED LABELS settle it: for all four, y_train.npy is uint8 with
+#     exactly the values {0, 1} — binary labels, not a continuous target.
+#     Markers and labels agree against info.json, and correcting the four
+#     restores the composition to exactly the marker tally 18 / 12 / 15.
+#
+# A harness that trusts info.json therefore standardises binary labels, scores
+# them by RMSE, and records every classification-only system as
+# skipped_no_regression on these four datasets. We correct the task type here,
+# in the dataset definition, and each affected unit records
+# task_type_source=dataset_yaml_override plus the shipped value, so the
+# correction is auditable from the released records. load_split refuses the
+# override if the labels are not in fact two-valued.
+#
+# To evaluate them AS SHIPPED instead, delete the task_type_override block: the
+# grouping below then reads 14 / 12 / 19.
+
+# Metadata corrections (member -> task type actually present in the labels).
+task_type_override:
+  law-school-admission: binclass
+  ozone_level: binclass
+  shill-bidding: binclass
+  Shipping: binclass
+
+datasets:
+  # binary classification (18)
+  - ada
+  - airlines_2000
+  - company_bankruptcy
+  - hill-valley
+  - house_16H
+  - ibm-employee-performance
+  - INNHotelsGroup
+  - jasmine
+  - law-school-admission
+  - longitudinal-survey
+  - online_shoppers
+  - ozone_level
+  - pc4
+  - PhishingWebsites
+  - rice_cammeo_and_osmancik
+  - shill-bidding
+  - Shipping
+  - statlog
+  # multi-class classification (12)
+  - allbp
+  - ASP-POTASSCO
+  - autoUniv-au7-1100
+  - eucalyptus
+  - Gender_Gap_in_Spanish
+  - internet_firewall
+  - jungle_chess_endgame
+  - microaggregation2
+  - okcupid_stem
+  - thyroid
+  - waveform-v1
+  - wine-quality-red
+  # regression (15)
+  - 2dplanes
+  - Abalone_reg
+  - analcatdata_supreme
+  - BNG(echoMonths)
+  - BNG(mv)
+  - compressive_strength
+  - cpu_act
+  - fifa
+  - Goodreads-Computer-Book
+  - house_8L
+  - IEEE80211aa-GATS
+  - Physicochemical_r
+  - pole
+  - qsar_aquatic_toxicity
+  - RSSI_Estimation
